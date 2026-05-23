@@ -132,7 +132,7 @@ with col1:
             df_mapa['COD_DEPARTAMENTO_STR'] = df_mapa['COD_DEPARTAMENTO'].astype(str).str.zfill(2)
             
             fig_mapa = px.choropleth_mapbox(
-                df_mapa, geojson=colombia_geojson, locations='COD_DEPARTAMENTO_STR', featureidkey="properties.DPTO_CCDGO",
+                df_mapa, geojson=colombia_geojson, locations='COD_DEPARTAMENTO_STR', featureidkey="properties.DPTO",
                 color='Total', color_continuous_scale="Reds",
                 mapbox_style="carto-positron", zoom=4, center={"lat": 4.5709, "lon": -74.2973},
                 opacity=0.7
