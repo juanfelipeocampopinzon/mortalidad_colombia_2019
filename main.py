@@ -127,13 +127,13 @@ with col1:
             with urllib.request.urlopen(url_geojson) as response:
                 colombia_geojson = json.loads(response.read().decode())
                 
-            df_mapa = df_nofetal.groupby('COD_DEPARTAMENTO').size().reset_index(name='Total')
+            df_mapa = df_nofetal.groupby(['COD_DEPARTAMENTO', 'DEPARTAMENTO']).size().reset_index(name='Total')
             # El geojson requiere que el código sea de 2 dígitos como string
             df_mapa['COD_DEPARTAMENTO_STR'] = df_mapa['COD_DEPARTAMENTO'].astype(str).str.zfill(2)
             
             fig_mapa = px.choropleth_mapbox(
                 df_mapa, geojson=colombia_geojson, locations='COD_DEPARTAMENTO_STR', featureidkey="properties.DPTO",
-                color='Total', color_continuous_scale="Reds",
+                color='Total', color_continuous_scale="Reds", hover_name="DEPARTAMENTO",
                 mapbox_style="carto-positron", zoom=4, center={"lat": 4.5709, "lon": -74.2973},
                 opacity=0.7
             )
